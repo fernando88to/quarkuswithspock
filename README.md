@@ -29,3 +29,7 @@ Standard test made in Groovy and Junit. The test is working
 ### GreetingResourceGroovySpockTest.groovy
 
 Standard test made in Groovy and Spock. The test not is working
+
+### MySpec.groovy
+
+Very simples test. The test is working.
