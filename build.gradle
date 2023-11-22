@@ -1,0 +1,65 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+    id 'groovy'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation 'io.quarkus:quarkus-resteasy-reactive-jackson'
+    implementation 'io.quarkus:quarkus-resteasy-reactive'
+    implementation 'io.quarkus:quarkus-arc'
+    implementation 'io.quarkiverse.groovy:quarkus-groovy-junit5:3.5.2'
+    implementation 'io.quarkiverse.groovy:quarkus-groovy-jaxb:3.5.2'
+    implementation 'io.quarkiverse.groovy:quarkus-groovy:3.5.2'
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.rest-assured:rest-assured'
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-4.0'
+}
+
+group 'com.fernando'
+version '1.0.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+test {
+    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+
+    //I had add is configuration to show more information in the console log
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        // Configurações detalhadas
+        exceptionFormat = 'full'
+        showExceptions = true
+        showStackTraces = true
+        showCauses = true
+    }
+}
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+
+sourceSets {
+    main {
+        java { srcDirs = [] }
+        groovy { srcDirs += ['src/main/java'] }
+    }
+    test {
+        java { srcDirs = [] }
+        groovy { srcDirs += ['src/test/java'] }
+    }
+}
